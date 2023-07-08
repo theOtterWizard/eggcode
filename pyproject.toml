@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "eggcode"
+version = "0.1.0"
+description = "Extended Grammar GCODE."
+authors = ["Taylor the Otter <12115403+theOtterWizard@users.noreply.github.com>"]
+license = "GPL-3.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+lark = "^1.1.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

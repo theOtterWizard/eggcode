@@ -27,6 +27,6 @@ ID: /[^\W\d]\w*/
 
 %import common.WS
 %ignore WS
-//COMMENT: "//" /[^\n]/*
-//%ignore COMMENT
+COMMENT: "//" /[^\n]/*
+%ignore COMMENT
 
