@@ -1,0 +1,32 @@
+start: (statement ";")+
+
+statement: "var" ID "=" expression -> variable_declaration
+         | expression
+         | gcode
+         | func_call [code_block]
+
+func_call: ID expr_group
+expr_group: "(" [expression ("," expression)*] ")"
+code_block: "{" (statement ";")* "}"
+
+gcode.1: /[fFgGmMsS]\d+/ gcode_argument*
+gcode_argument: /[^\W\d]\d+/
+              | /[^\W\d]/ "<" expression ">"
+
+?expression: expression (binary_operator expression)?
+           | unary_operator expression
+           | value
+           | ID
+
+binary_operator: /[+-<>*\/]/
+unary_operator: "-"
+
+value: /\d+(\.\d+)*/
+
+ID: /[^\W\d]\w*/
+
+%import common.WS
+%ignore WS
+//COMMENT: "//" /[^\n]/*
+//%ignore COMMENT
+

@@ -1,0 +1,9 @@
+var s=1;
+var i=0;
+G0 x5y10;
+while(i<10){
+    G1x<s*5>;
+    G1Y3;
+    neg(s);
+    inc(i);
+};
