@@ -8,7 +8,7 @@ G1 x<s>; // using variable in gcode
 while(i<10){
     G1x<s*5>;
     G1Y3;
-    s = 1 + -s;
+    s = -s;
     i += 1;
     print(i);
 };
