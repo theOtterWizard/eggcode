@@ -4,15 +4,15 @@ start: (statement ";")+
           | ID mutation_operation expression -> variable_mutation
           | expression
           | gcode
-          | func_call [code_block]
-          | control_flow_statement code_block
+          | func_call
+          | control_flow_statement
 
 ?mutation_operation: "="  -> mut_op_equals
 		  | "+=" -> mut_op_plus_equals
 		  | "-=" -> mut_op_min_equals
 
-control_flow_statement.1: "while" expr_group -> while_loop
-                        | "for" expr_group   -> for_loop
+control_flow_statement.1: "while" expr_group code_block -> while_loop
+                        | "for" expr_group code_block -> for_loop
 
 func_call: ID expr_group
 ?expr_group: "(" (expression ("," expression)*)? ")"
@@ -22,15 +22,15 @@ gcode.1: /[fFgGmMsS]\d+/ gcode_argument*
 gcode_argument: /[^\W\d]\d+/
               | /[^\W\d]/ "<" expression ">"
 
-?expression: expression (binary_operator expression)?
-           | unary_operator expression
-           | value
+?expression: expression (BINARY_OPERATOR expression)?
+           | UNARY_OPERATOR expression
+           | VALUE
            | ID
 
-binary_operator: /[+-<>*\/]/
-unary_operator: "-" -> u_op_negative
+BINARY_OPERATOR: /[+-<>*\/]/
+UNARY_OPERATOR: "-" 
 
-?value: /\d+(\.\d+)*/
+VALUE: /\d+(\.\d+)*/
 
 ID: /[^\W\d]\w*/
 
