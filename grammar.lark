@@ -1,15 +1,15 @@
 start: (statement ";")+
 
 ?statement: "var" ID "=" expression -> variable_declaration
-          | ID mutation_operation expression -> variable_mutation
+          | ID MUTATION_OPERATION expression -> variable_mutation
           | expression
           | gcode
           | func_call
           | control_flow_statement
 
-?mutation_operation: "="  -> mut_op_equals
-		  | "+=" -> mut_op_plus_equals
-		  | "-=" -> mut_op_min_equals
+MUTATION_OPERATION: "="  //-> mut_op_equals
+		  | "+=" //-> mut_op_plus_equals
+		  | "-=" //-> mut_op_min_equals
 
 control_flow_statement.1: "while" expr_group code_block -> while_loop
                         | "for" expr_group code_block -> for_loop
@@ -18,8 +18,8 @@ func_call: ID expr_group
 ?expr_group: "(" (expression ("," expression)*)? ")"
 code_block: "{" (statement ";")* "}"
 
-gcode.1: /[fFgGmMsS]\d+/ gcode_argument*
-gcode_argument: /[^\W\d]\d+/
+gcode.1: /[fFgGmMsS]\d+/ _gcode_argument*
+_gcode_argument: /[^\W\d]\d+/
               | /[^\W\d]/ "<" expression ">"
 
 ?expression: expression (BINARY_OPERATOR expression)?
