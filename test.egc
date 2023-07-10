@@ -1,10 +1,14 @@
-var s=1;
+var s=1; // variable declaration
 var i=0;
+
+i=s-1; // variable mutation with expression
+
 G0 x5y10;
+G1 x<s>; // using variable in gcode
 while(i<10){
     G1x<s*5>;
     G1Y3;
-    s = -s;
+    s = 1 + -s;
     i += 1;
     print(i);
 };
